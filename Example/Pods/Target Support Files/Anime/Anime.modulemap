@@ -1,0 +1,6 @@
+framework module Anime {
+  umbrella header "Anime-umbrella.h"
+
+  export *
+  module * { export * }
+}

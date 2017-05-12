@@ -1,0 +1,16 @@
+PODS:
+  - Anime (0.1.0)
+
+DEPENDENCIES:
+  - Anime (from `../`)
+
+EXTERNAL SOURCES:
+  Anime:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  Anime: a637360f0095aa3951a412c27f6c04cc2996290e
+
+PODFILE CHECKSUM: 525c0f690a8683e3bd1ee7dd81fd270378cafd88
+
+COCOAPODS: 1.2.1

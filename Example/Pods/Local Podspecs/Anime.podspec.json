@@ -1,0 +1,22 @@
+{
+  "name": "Anime",
+  "version": "0.1.0",
+  "summary": "A short description of Anime.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/p3n9/Anime",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "p3n9": "peng@pengxwang.com"
+  },
+  "source": {
+    "git": "https://github.com/p3n9/Anime.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "source_files": "Anime/Classes/**/*"
+}

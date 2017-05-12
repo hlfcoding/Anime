@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'Anime_Example' do
+  pod 'Anime', :path => '../'
+
+  target 'Anime_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
