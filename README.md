@@ -1,15 +1,35 @@
 # Anime
 
-[![CI Status](http://img.shields.io/travis/hlfcoding/Anime.svg?style=flat)](https://travis-ci.org/hlfcoding/Anime)
 [![Version](https://img.shields.io/cocoapods/v/Anime.svg?style=flat)](http://cocoapods.org/pods/Anime)
 [![License](https://img.shields.io/cocoapods/l/Anime.svg?style=flat)](http://cocoapods.org/pods/Anime)
 [![Platform](https://img.shields.io/cocoapods/p/Anime.svg?style=flat)](http://cocoapods.org/pods/Anime)
 
+> :film_strip: &nbsp; UIView animation from the Far East.
+
+![anime](https://cloud.githubusercontent.com/assets/100884/25989526/5c303b94-36b1-11e7-90d6-610694124c1d.gif)
+
 ## Example
+
+```swift
+let timeline = AnimationTimeline()
+var a = Animation()
+a.duration = 1
+a.animations = { /* ... */ }
+timeline.append(animation: a)
+var b = a
+b.animations = { /* ... */ }
+timeline.append(animation: b)
+// ...
+timeline.start() {
+  print("done")
+}
+```
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
 ## Requirements
+
+Swift 3+
 
 ## Installation
 
