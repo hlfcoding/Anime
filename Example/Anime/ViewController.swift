@@ -7,12 +7,108 @@
 //
 
 import UIKit
+import Anime
 
 class ViewController: UIViewController {
 
+    var timeline: AnimationTimeline!
+
+    var box: UIButton!
+    var distanceToCenter: CGPoint!
+
+    lazy var baseAnimation: Animation = {
+        var a = Animation()
+        a.duration = 1
+        a.delay = 0.5
+        a.completion = { [weak self] _ in
+            guard let timeline = self?.timeline else { return }
+            NSLog("\(timeline.cursor)")
+        }
+        return a
+    }()
+
+    lazy var downAnimation: Animation = {
+        var a = self.baseAnimation
+        a.type = .spring
+        a.animations = { [weak self] _ in
+            guard let box = self?.box else { return }
+            box.transform = box.transform.translatedBy(x: 0, y: self!.distanceToCenter.y)
+        }
+        return a
+    }()
+
+    lazy var leftAnimation: Animation = {
+        var a = self.baseAnimation
+        a.type = .keyframed
+        a.animations = { [weak self] _ in
+            guard let box = self?.box else { return }
+            let oldColor = box.backgroundColor
+            let oldTransform = box.transform
+            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.5) {
+                box.backgroundColor = UIColor.red
+                box.transform = box.transform.scaledBy(x: 2, y: 2)
+            }
+            UIView.addKeyframe(withRelativeStartTime: 0.5, relativeDuration: 0.5) {
+                box.backgroundColor = oldColor
+                box.transform = oldTransform.translatedBy(x: -self!.distanceToCenter.x, y: 0)
+            }
+        }
+        return a
+    }()
+
+    lazy var rightAnimation: Animation = {
+        var a = self.baseAnimation
+        a.animations = { [weak self] _ in
+            guard let box = self?.box else { return }
+            box.transform = box.transform.translatedBy(x: self!.distanceToCenter.x, y: 0)
+        }
+        return a
+    }()
+
+    lazy var upAnimation: Animation = {
+        var a = self.baseAnimation
+        a.animations = { [weak self] _ in
+            guard let box = self?.box else { return }
+            box.transform = box.transform.translatedBy(x: 0, y: -self!.distanceToCenter.y)
+        }
+        return a
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        box = UIButton(type: .custom)
+        box.alpha = 0
+        box.backgroundColor = UIColor.white
+        box.addTarget(self, action: #selector(animateBox(_:)), for: .touchUpInside)
+        view.addSubview(box)
+
+        let d = ceil(view.frame.width / 3)
+        box.frame = CGRect(x: 0, y: UIApplication.shared.statusBarFrame.height, width: d, height: d)
+        box.translatesAutoresizingMaskIntoConstraints = false
+        distanceToCenter = CGPoint(
+            x: view.bounds.midX - box.frame.midX,
+            y: view.bounds.midY - box.frame.midY
+        )
+
+        timeline = AnimationTimeline()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        if box.alpha == 0 {
+            UIView.animate(withDuration: 0.3) { self.box.alpha = 1 }
+        }
+    }
+
+    @objc private func animateBox(_ sender: UIButton) {
+        guard timeline.isEmpty else { return }
+
+        timeline.append(animation: rightAnimation)
+        timeline.append(animation: downAnimation)
+        timeline.append(animation: leftAnimation)
+        timeline.append(animation: upAnimation)
+
+        timeline.start()
     }
 
 }
-
