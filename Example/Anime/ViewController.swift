@@ -17,9 +17,7 @@ class ViewController: UIViewController {
     var distanceToCenter: CGPoint!
 
     lazy var baseAnimation: Animation = {
-        var a = Animation()
-        a.duration = 1
-        a.delay = 0.5
+        var a = Animation(delay: 0.5, duration: 1)
         a.completion = { [weak self] _ in
             guard let timeline = self?.timeline else { return }
             NSLog("\(timeline.cursor)")
@@ -29,7 +27,7 @@ class ViewController: UIViewController {
 
     lazy var downAnimation: Animation = {
         var a = self.baseAnimation
-        a.type = .spring
+        a.type = .spring(options: [], damping: 0.7, velocity: 1)
         a.animations = { [weak self] _ in
             guard let box = self?.box else { return }
             box.transform = box.transform.translatedBy(x: 0, y: self!.distanceToCenter.y)
@@ -39,7 +37,7 @@ class ViewController: UIViewController {
 
     lazy var leftAnimation: Animation = {
         var a = self.baseAnimation
-        a.type = .keyframed
+        a.type = .keyframed(options: [])
         a.animations = { [weak self] _ in
             guard let box = self?.box else { return }
             let oldColor = box.backgroundColor

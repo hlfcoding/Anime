@@ -10,22 +10,32 @@ import UIKit
 
 public enum AnimationType {
 
-    case plain, keyframed, spring
+    case plain(options: UIViewAnimationOptions)
+    case keyframed(options: UIViewKeyframeAnimationOptions)
+    case spring(options: UIViewAnimationOptions, damping: CGFloat, velocity: CGFloat)
 
 }
 
 public struct Animation {
 
-    public var animations: () -> Void = {}
+    public var animations: () -> Void
     public var completion: ((Bool) -> Void)?
-    public var delay: TimeInterval = 0
-    public var duration: TimeInterval = 0
-    public var keyframeOptions: UIViewKeyframeAnimationOptions = []
-    public var options: UIViewAnimationOptions = []
-    public var spring: (damping: CGFloat, velocity: CGFloat) = (0.7, 1)
-    public var type: AnimationType = .plain
+    public var delay: TimeInterval
+    public var duration: TimeInterval
+    public var type: AnimationType
 
-    public init() {}
+    public init(
+        animations: @escaping () -> Void = {},
+        completion: ((Bool) -> Void)? = nil,
+        delay: TimeInterval = 0,
+        duration: TimeInterval,
+        type: AnimationType = .plain(options: [])) {
+        self.animations = animations
+        self.completion = completion
+        self.delay = delay
+        self.duration = duration
+        self.type = type
+    }
 
 }
 
@@ -74,29 +84,29 @@ final public class AnimationTimeline {
             self.step()
         }
         switch a.type {
-        case .plain:
+        case let .plain(options):
             UIView.animate(
                 withDuration: a.duration,
                 delay: a.delay,
-                options: a.options,
+                options: options,
                 animations: a.animations,
                 completion: completion
             )
-        case .keyframed:
+        case let .keyframed(options):
             UIView.animateKeyframes(
                 withDuration: a.duration,
                 delay: a.delay,
-                options: a.keyframeOptions,
+                options: options,
                 animations: a.animations,
                 completion: completion
             )
-        case .spring:
+        case let .spring(options, damping, velocity):
             UIView.animate(
                 withDuration: a.duration,
                 delay: a.delay,
-                usingSpringWithDamping: a.spring.damping,
-                initialSpringVelocity: a.spring.velocity,
-                options: a.options,
+                usingSpringWithDamping: damping,
+                initialSpringVelocity: velocity,
+                options: options,
                 animations: a.animations,
                 completion: completion
             )
