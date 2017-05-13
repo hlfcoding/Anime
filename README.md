@@ -11,12 +11,10 @@
 ## Example
 
 ```swift
-let timeline = AnimationTimeline()
-let a = Animation(animations: { /* ... */ }, duration: 1)
+let a = Animation(of: { /* ... */ }, duration: 1)
 let b = a.with(animations: { /* ... */ })
-timeline.append(a, b)
 // ...
-timeline.start() {
+AnimationTimeline(a, b).start() {
   print("done")
 }
 ```

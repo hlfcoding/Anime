@@ -25,7 +25,7 @@ public struct Animation {
     public var type: AnimationType
 
     public init(
-        animations: @escaping () -> Void = {},
+        of animations: @escaping () -> Void = {},
         delay: TimeInterval = 0,
         duration: TimeInterval,
         type: AnimationType = .plain(options: []),
@@ -66,16 +66,24 @@ final public class AnimationTimeline {
     private var completion: (() -> Void)?
 
     public init() {}
+    public convenience init(_ animations: Animation...) {
+        self.init()
+        append(animations)
+    }
 
     public func append(_ animations: Animation...) {
+        append(animations)
+    }
+    public func append(_ animations: [Animation]) {
         self.animations.append(contentsOf: animations)
     }
 
-    public func start(completion: (() -> Void)? = nil) {
-        guard !animations.isEmpty else { return }
+    @discardableResult public func start(completion: (() -> Void)? = nil) -> AnimationTimeline {
+        guard !animations.isEmpty else { return self }
         guard self.completion == nil else { return }
         self.completion = completion
         step()
+        return self
     }
 
     private func finish() {
