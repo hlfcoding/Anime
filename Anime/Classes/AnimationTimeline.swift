@@ -37,6 +37,21 @@ public struct Animation {
         self.type = type
     }
 
+    public func with(
+        animations: (() -> Void)? = nil,
+        delay: TimeInterval? = nil,
+        duration: TimeInterval? = nil,
+        type: AnimationType? = nil,
+        completion: ((Bool) -> Void)? = nil) -> Animation {
+        var copy = self
+        copy.animations = animations ?? copy.animations
+        copy.delay = delay ?? copy.delay
+        copy.duration = duration ?? copy.duration
+        copy.type = type ?? copy.type
+        copy.completion = completion ?? copy.completion
+        return copy
+    }
+
 }
 
 final public class AnimationTimeline {

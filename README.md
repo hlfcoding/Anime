@@ -12,10 +12,8 @@
 
 ```swift
 let timeline = AnimationTimeline()
-var a = Animation(duration: 1)
-a.animations = { /* ... */ }
-var b = a
-b.animations = { /* ... */ }
+let a = Animation(animations: { /* ... */ }, duration: 1)
+let b = a.with(animations: { /* ... */ })
 timeline.append(a, b)
 // ...
 timeline.start() {

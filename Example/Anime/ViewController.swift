@@ -23,18 +23,13 @@ class ViewController: UIViewController {
     }()
 
     lazy var downAnimation: Animation = {
-        var a = self.baseAnimation
-        a.type = .spring(options: [], damping: 0.7, velocity: 1)
-        a.animations = { [unowned self] _ in
+        return self.baseAnimation.with(animations: { [unowned self] _ in
             self.box.transform = self.box.transform.translatedBy(x: 0, y: self.distanceToCenter.y)
-        }
-        return a
+        }, type: .spring(options: [], damping: 0.7, velocity: 1))
     }()
 
     lazy var leftAnimation: Animation = {
-        var a = self.baseAnimation
-        a.type = .keyframed(options: [])
-        a.animations = { [unowned self] _ in
+        return self.baseAnimation.with(animations: { [unowned self] _ in
             let oldColor = self.box.backgroundColor
             let oldTransform = self.box.transform
             UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.5) {
@@ -45,24 +40,19 @@ class ViewController: UIViewController {
                 self.box.backgroundColor = oldColor
                 self.box.transform = oldTransform.translatedBy(x: -self.distanceToCenter.x, y: 0)
             }
-        }
-        return a
+        }, type: .keyframed(options: []))
     }()
 
     lazy var rightAnimation: Animation = {
-        var a = self.baseAnimation
-        a.animations = { [unowned self] _ in
+        return self.baseAnimation.with(animations: { [unowned self] _ in
             self.box.transform = self.box.transform.translatedBy(x: self.distanceToCenter.x, y: 0)
-        }
-        return a
+        })
     }()
 
     lazy var upAnimation: Animation = {
-        var a = self.baseAnimation
-        a.animations = { [unowned self] _ in
+        return self.baseAnimation.with(animations: { [unowned self] _ in
             self.box.transform = self.box.transform.translatedBy(x: 0, y: -self.distanceToCenter.y)
-        }
-        return a
+        })
     }()
 
     override func viewDidLoad() {
