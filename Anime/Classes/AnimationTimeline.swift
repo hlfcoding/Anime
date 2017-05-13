@@ -42,8 +42,8 @@ final public class AnimationTimeline {
 
     public init() {}
 
-    public func append(animation: Animation) {
-        animations.append(animation)
+    public func append(_ animations: Animation...) {
+        self.animations.append(contentsOf: animations)
     }
 
     public func start(completion: (() -> Void)? = nil) {

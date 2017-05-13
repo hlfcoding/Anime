@@ -102,12 +102,7 @@ class ViewController: UIViewController {
 
     @objc private func animateBox(_ sender: UIButton) {
         guard timeline.isEmpty else { return }
-
-        timeline.append(animation: rightAnimation)
-        timeline.append(animation: downAnimation)
-        timeline.append(animation: leftAnimation)
-        timeline.append(animation: upAnimation)
-
+        timeline.append(rightAnimation, downAnimation, leftAnimation, upAnimation)
         timeline.start()
     }
 

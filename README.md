@@ -15,10 +15,9 @@ let timeline = AnimationTimeline()
 var a = Animation()
 a.duration = 1
 a.animations = { /* ... */ }
-timeline.append(animation: a)
 var b = a
 b.animations = { /* ... */ }
-timeline.append(animation: b)
+timeline.append(a, b)
 // ...
 timeline.start() {
   print("done")
