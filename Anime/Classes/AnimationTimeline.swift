@@ -26,10 +26,10 @@ public struct Animation {
 
     public init(
         animations: @escaping () -> Void = {},
-        completion: ((Bool) -> Void)? = nil,
         delay: TimeInterval = 0,
         duration: TimeInterval,
-        type: AnimationType = .plain(options: [])) {
+        type: AnimationType = .plain(options: []),
+        completion: ((Bool) -> Void)? = nil) {
         self.animations = animations
         self.completion = completion
         self.delay = delay

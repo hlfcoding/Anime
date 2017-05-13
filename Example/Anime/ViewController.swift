@@ -17,11 +17,9 @@ class ViewController: UIViewController {
     var distanceToCenter: CGPoint!
 
     lazy var baseAnimation: Animation = {
-        var a = Animation(delay: 0.5, duration: 1)
-        a.completion = { [unowned self] _ in
+        return Animation(delay: 0.5, duration: 1) { [unowned self] _ in
             NSLog("\(self.timeline.cursor)")
         }
-        return a
     }()
 
     lazy var downAnimation: Animation = {
