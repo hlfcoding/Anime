@@ -17,7 +17,7 @@ class ViewController: UIViewController {
     var distanceToCenter: CGPoint!
 
     lazy var baseAnimation: Animation = {
-        return Animation(delay: 0.5, duration: 1) { [unowned self] _ in
+        return Animation(delay: 0.2, duration: 0.4) { [unowned self] _ in
             NSLog("\(self.timeline.cursor)")
         }
     }()
@@ -83,7 +83,10 @@ class ViewController: UIViewController {
 
     @objc private func animateBox(_ sender: UIButton) {
         guard timeline.isEmpty else { return }
-        timeline.append(rightAnimation, downAnimation, leftAnimation, upAnimation)
+        timeline.append(
+            rightAnimation, rightAnimation, downAnimation, downAnimation, leftAnimation,
+            upAnimation, downAnimation, leftAnimation, upAnimation, upAnimation
+        )
         timeline.start()
     }
 

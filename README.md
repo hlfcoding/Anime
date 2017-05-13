@@ -14,9 +14,13 @@
 let a = Animation(of: { /* ... */ }, duration: 1)
 let b = a.with(animations: { /* ... */ })
 // ...
-AnimationTimeline(a, b).start() {
+let timeline = AnimationTimeline(a, b, b, a).start() {
   print("done")
 }
+var z = b.with(animations: { /* ... */ })
+z.type = .keyframed(options: [])
+// ...
+timeline.append(z)
 ```
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
