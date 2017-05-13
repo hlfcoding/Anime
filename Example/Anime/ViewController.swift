@@ -18,9 +18,8 @@ class ViewController: UIViewController {
 
     lazy var baseAnimation: Animation = {
         var a = Animation(delay: 0.5, duration: 1)
-        a.completion = { [weak self] _ in
-            guard let timeline = self?.timeline else { return }
-            NSLog("\(timeline.cursor)")
+        a.completion = { [unowned self] _ in
+            NSLog("\(self.timeline.cursor)")
         }
         return a
     }()
@@ -28,9 +27,8 @@ class ViewController: UIViewController {
     lazy var downAnimation: Animation = {
         var a = self.baseAnimation
         a.type = .spring(options: [], damping: 0.7, velocity: 1)
-        a.animations = { [weak self] _ in
-            guard let box = self?.box else { return }
-            box.transform = box.transform.translatedBy(x: 0, y: self!.distanceToCenter.y)
+        a.animations = { [unowned self] _ in
+            self.box.transform = self.box.transform.translatedBy(x: 0, y: self.distanceToCenter.y)
         }
         return a
     }()
@@ -38,17 +36,16 @@ class ViewController: UIViewController {
     lazy var leftAnimation: Animation = {
         var a = self.baseAnimation
         a.type = .keyframed(options: [])
-        a.animations = { [weak self] _ in
-            guard let box = self?.box else { return }
-            let oldColor = box.backgroundColor
-            let oldTransform = box.transform
+        a.animations = { [unowned self] _ in
+            let oldColor = self.box.backgroundColor
+            let oldTransform = self.box.transform
             UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.5) {
-                box.backgroundColor = UIColor.red
-                box.transform = box.transform.scaledBy(x: 2, y: 2)
+                self.box.backgroundColor = UIColor.red
+                self.box.transform = self.box.transform.scaledBy(x: 2, y: 2)
             }
             UIView.addKeyframe(withRelativeStartTime: 0.5, relativeDuration: 0.5) {
-                box.backgroundColor = oldColor
-                box.transform = oldTransform.translatedBy(x: -self!.distanceToCenter.x, y: 0)
+                self.box.backgroundColor = oldColor
+                self.box.transform = oldTransform.translatedBy(x: -self.distanceToCenter.x, y: 0)
             }
         }
         return a
@@ -56,18 +53,16 @@ class ViewController: UIViewController {
 
     lazy var rightAnimation: Animation = {
         var a = self.baseAnimation
-        a.animations = { [weak self] _ in
-            guard let box = self?.box else { return }
-            box.transform = box.transform.translatedBy(x: self!.distanceToCenter.x, y: 0)
+        a.animations = { [unowned self] _ in
+            self.box.transform = self.box.transform.translatedBy(x: self.distanceToCenter.x, y: 0)
         }
         return a
     }()
 
     lazy var upAnimation: Animation = {
         var a = self.baseAnimation
-        a.animations = { [weak self] _ in
-            guard let box = self?.box else { return }
-            box.transform = box.transform.translatedBy(x: 0, y: -self!.distanceToCenter.y)
+        a.animations = { [unowned self] _ in
+            self.box.transform = self.box.transform.translatedBy(x: 0, y: -self.distanceToCenter.y)
         }
         return a
     }()
