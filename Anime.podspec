@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'Anime'
-  s.version          = '0.1.0'
+  s.version          = '0.2.0'
   s.summary          = 'UIView animation from the Far East.'
   s.description      = 'Simple UIView animation library, but not any simpler.'
   s.homepage         = 'https://github.com/hlfcoding/Anime'
