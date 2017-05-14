@@ -63,7 +63,7 @@ final public class AnimationTimeline {
     public private(set) var cursor: Int = 0
 
     private var animations = [Animation]()
-    private var completion: (() -> Void)?
+    private var completion: ((_ finished: Bool) -> Void)?
 
     public init() {}
     public convenience init(_ animations: Animation...) {
@@ -78,9 +78,8 @@ final public class AnimationTimeline {
         self.animations.append(contentsOf: animations)
     }
 
-    @discardableResult public func start(completion: (() -> Void)? = nil) -> AnimationTimeline {
+    @discardableResult public func start(completion: ((Bool) -> Void)? = nil) -> AnimationTimeline {
         guard !animations.isEmpty else { return self }
-        guard self.completion == nil else { return }
         self.completion = completion
         step()
         return self
@@ -88,9 +87,11 @@ final public class AnimationTimeline {
 
     private func finish() {
         cursor = 0
+        let finished = !needsToCancel
         needsToCancel = false
-        completion?()
+        completion?(finished)
         if clearsOnFinish {
+            completion = nil
             animations.removeAll()
         }
     }

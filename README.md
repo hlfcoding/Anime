@@ -14,13 +14,20 @@
 let a = Animation(of: { /* ... */ }, duration: 1)
 let b = a.with(animations: { /* ... */ })
 // ...
-let timeline = AnimationTimeline(a, b, b, a).start() {
+let timeline = AnimationTimeline(a, b, b, a).start() { finished in
+  guard finished else {
+    // ...
+    return
+  }
   print("done")
 }
-var z = b.with(animations: { /* ... */ })
+var z = b
+z.animations = { /* ... */ }
 z.type = .keyframed(options: [])
 // ...
 timeline.append(z)
+// ...
+timeline.needsToCancel = true
 ```
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
