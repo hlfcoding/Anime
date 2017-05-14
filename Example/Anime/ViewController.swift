@@ -57,25 +57,31 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         box = UIButton(type: .custom)
         box.alpha = 0
-        box.backgroundColor = UIColor.white
+        box.translatesAutoresizingMaskIntoConstraints = false
         box.addTarget(self, action: #selector(animateBox(_:)), for: .touchUpInside)
         view.addSubview(box)
+        resetBox()
 
-        let d = ceil(view.frame.width / 3)
-        box.frame = CGRect(x: 0, y: UIApplication.shared.statusBarFrame.height, width: d, height: d)
-        box.translatesAutoresizingMaskIntoConstraints = false
         distanceToCenter = CGPoint(
             x: view.bounds.midX - box.frame.midX,
             y: view.bounds.midY - box.frame.midY
         )
 
         timeline = AnimationTimeline()
+
+        var observer: NSObjectProtocol!
+        observer = NotificationCenter.default.addObserver(
+            forName: .UIApplicationWillResignActive, object: nil, queue: .main
+        ) { [weak self] _ in
+            self?.timeline.needsToCancel = true
+            NotificationCenter.default.removeObserver(observer)
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         if box.alpha == 0 {
             UIView.animate(withDuration: 0.3) { self.box.alpha = 1 }
         }
@@ -87,7 +93,16 @@ class ViewController: UIViewController {
             rightAnimation, rightAnimation, downAnimation, downAnimation, leftAnimation,
             upAnimation, downAnimation, leftAnimation, upAnimation, upAnimation
         )
-        timeline.start()
+        timeline.start() { [unowned self] finished in
+            guard !finished else { return }
+            self.resetBox()
+        }
+    }
+
+    private func resetBox() {
+        box.backgroundColor = UIColor.white
+        let d = ceil(view.frame.width / 3)
+        box.frame = CGRect(x: 0, y: UIApplication.shared.statusBarFrame.height, width: d, height: d)
     }
 
 }
