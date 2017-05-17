@@ -87,7 +87,7 @@ final public class AnimationTimeline {
 
     private func finish() {
         cursor = 0
-        let finished = !needsToCancel
+        let finished = cursor == animations.count - 1
         needsToCancel = false
         completion?(finished)
         if clearsOnFinish {
