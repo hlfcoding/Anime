@@ -1,22 +1,24 @@
 {
   "name": "Anime",
-  "version": "0.1.0",
-  "summary": "A short description of Anime.",
-  "description": "TODO: Add long description of the pod here.",
-  "homepage": "https://github.com/p3n9/Anime",
+  "version": "0.2.0",
+  "summary": "UIView animation from the Far East.",
+  "description": "Simple UIView animation library, but not any simpler.",
+  "homepage": "https://github.com/hlfcoding/Anime",
   "license": {
     "type": "MIT",
     "file": "LICENSE"
   },
   "authors": {
-    "p3n9": "peng@pengxwang.com"
+    "Peng Wang": "peng@pengxwang.com"
   },
   "source": {
-    "git": "https://github.com/p3n9/Anime.git",
-    "tag": "0.1.0"
+    "git": "https://github.com/hlfcoding/Anime.git",
+    "tag": "0.2.0"
   },
+  "social_media_url": "https://twitter.com/hlfcoding",
   "platforms": {
-    "ios": "8.0"
+    "ios": "10.0"
   },
-  "source_files": "Anime/Classes/**/*"
+  "source_files": "Anime/Classes/**/*",
+  "frameworks": "UIKit"
 }

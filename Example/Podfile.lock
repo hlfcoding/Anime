@@ -1,5 +1,5 @@
 PODS:
-  - Anime (0.1.0)
+  - Anime (0.2.0)
 
 DEPENDENCIES:
   - Anime (from `../`)
@@ -9,7 +9,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  Anime: a637360f0095aa3951a412c27f6c04cc2996290e
+  Anime: 74bfe447da2697319ebbf14b9e540dfb8bd5ad32
 
 PODFILE CHECKSUM: 525c0f690a8683e3bd1ee7dd81fd270378cafd88
 
