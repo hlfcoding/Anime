@@ -3,6 +3,7 @@
 [![Version](https://img.shields.io/cocoapods/v/Anime.svg?style=flat)](http://cocoapods.org/pods/Anime)
 [![License](https://img.shields.io/cocoapods/l/Anime.svg?style=flat)](http://cocoapods.org/pods/Anime)
 [![Platform](https://img.shields.io/cocoapods/p/Anime.svg?style=flat)](http://cocoapods.org/pods/Anime)
+[![Code Climate](https://codeclimate.com/github/hlfcoding/Anime/badges/gpa.svg)](https://codeclimate.com/github/hlfcoding/Anime)
 
 > :film_strip: &nbsp; UIView animation from the Far East.
 
