@@ -18,18 +18,21 @@ public enum AnimationType {
 
 public struct Animation {
 
-    public var animations: () -> Void
-    public var completion: ((Bool) -> Void)?
+    public typealias Animations = () -> Void
+    public typealias Completion = (_ finished: Bool) -> Void
+
+    public var animations: Animations
+    public var completion: Completion?
     public var delay: TimeInterval
     public var duration: TimeInterval
     public var type: AnimationType
 
     public init(
-        of animations: @escaping () -> Void = {},
+        of animations: @escaping Animations = {},
         delay: TimeInterval = 0,
         duration: TimeInterval,
         type: AnimationType = .plain(options: []),
-        completion: ((Bool) -> Void)? = nil) {
+        completion: Completion? = nil) {
         self.animations = animations
         self.completion = completion
         self.delay = delay
@@ -38,11 +41,11 @@ public struct Animation {
     }
 
     public func with(
-        animations: (() -> Void)? = nil,
+        animations: Animations? = nil,
         delay: TimeInterval? = nil,
         duration: TimeInterval? = nil,
         type: AnimationType? = nil,
-        completion: ((Bool) -> Void)? = nil) -> Animation {
+        completion: Completion? = nil) -> Animation {
         var copy = self
         copy.animations = animations ?? copy.animations
         copy.delay = delay ?? copy.delay
@@ -56,6 +59,8 @@ public struct Animation {
 
 final public class AnimationTimeline {
 
+    public typealias Completion = (_ finished: Bool) -> Void
+
     public var clearsOnFinish = true
     public var needsToCancel = false
 
@@ -63,7 +68,7 @@ final public class AnimationTimeline {
     public private(set) var cursor: Int = 0
 
     private var animations = [Animation]()
-    private var completion: ((_ finished: Bool) -> Void)?
+    private var completion: Completion?
 
     public init() {}
     public convenience init(_ animations: Animation...) {
@@ -78,7 +83,7 @@ final public class AnimationTimeline {
         self.animations.append(contentsOf: animations)
     }
 
-    @discardableResult public func start(completion: ((Bool) -> Void)? = nil) -> AnimationTimeline {
+    @discardableResult public func start(completion: Completion? = nil) -> AnimationTimeline {
         guard !animations.isEmpty else { return self }
         self.completion = completion
         step()
@@ -98,7 +103,7 @@ final public class AnimationTimeline {
 
     private func step() {
         let a = animations[cursor]
-        let completion: (Bool) -> Void = { finished in
+        let completion: Animation.Completion = { finished in
             a.completion?(finished)
             guard self.cursor + 1 < self.animations.count, !self.needsToCancel else {
                 self.finish()
