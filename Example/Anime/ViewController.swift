@@ -18,18 +18,18 @@ class ViewController: UIViewController {
 
     lazy var baseAnimation: Animation = {
         return Animation(delay: 0.2, duration: 0.4) { [unowned self] _ in
-            NSLog("\(self.timeline.cursor)")
+            NSLog(String(self.timeline.cursor))
         }
     }()
 
     lazy var downAnimation: Animation = {
-        return self.baseAnimation.with(animations: { [unowned self] _ in
+        return self.baseAnimation.with(animations: { [unowned self] in
             self.box.transform = self.box.transform.translatedBy(x: 0, y: self.distanceToCenter.y)
         }, type: .spring(options: [], damping: 0.7, velocity: 1))
     }()
 
     lazy var leftAnimation: Animation = {
-        return self.baseAnimation.with(animations: { [unowned self] _ in
+        return self.baseAnimation.with(animations: { [unowned self] in
             let oldColor = self.box.backgroundColor
             let oldTransform = self.box.transform
             UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.5) {
@@ -44,13 +44,13 @@ class ViewController: UIViewController {
     }()
 
     lazy var rightAnimation: Animation = {
-        return self.baseAnimation.with(animations: { [unowned self] _ in
+        return self.baseAnimation.with(animations: { [unowned self] in
             self.box.transform = self.box.transform.translatedBy(x: self.distanceToCenter.x, y: 0)
         })
     }()
 
     lazy var upAnimation: Animation = {
-        return self.baseAnimation.with(animations: { [unowned self] _ in
+        return self.baseAnimation.with(animations: { [unowned self] in
             self.box.transform = self.box.transform.translatedBy(x: 0, y: -self.distanceToCenter.y)
         })
     }()
@@ -73,7 +73,7 @@ class ViewController: UIViewController {
 
         var observer: NSObjectProtocol!
         observer = NotificationCenter.default.addObserver(
-            forName: .UIApplicationWillResignActive, object: nil, queue: .main
+            forName: UIApplication.willResignActiveNotification, object: nil, queue: .main
         ) { [weak self] _ in
             self?.timeline.needsToCancel = true
             NotificationCenter.default.removeObserver(observer)

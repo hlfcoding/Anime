@@ -10,9 +10,9 @@ import UIKit
 
 public enum AnimationType {
 
-    case plain(options: UIViewAnimationOptions)
-    case keyframed(options: UIViewKeyframeAnimationOptions)
-    case spring(options: UIViewAnimationOptions, damping: CGFloat, velocity: CGFloat)
+    case plain(options: UIView.AnimationOptions)
+    case keyframed(options: UIView.KeyframeAnimationOptions)
+    case spring(options: UIView.AnimationOptions, damping: CGFloat, velocity: CGFloat)
 
 }
 
