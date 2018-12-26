@@ -530,10 +530,6 @@
 			baseConfigurationReference = A96766D5C62017FE51BE2296 /* Pods-Anime_Tests.debug.xcconfig */;
 			buildSettings = {
 				DEVELOPMENT_TEAM = G9TR83TNAE;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -551,10 +547,6 @@
 			baseConfigurationReference = 7B036ED5C03E0754DA5D999E /* Pods-Anime_Tests.release.xcconfig */;
 			buildSettings = {
 				DEVELOPMENT_TEAM = G9TR83TNAE;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.$(PRODUCT_NAME:rfc1034identifier)";

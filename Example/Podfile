@@ -1,6 +1,7 @@
 use_frameworks!
 
 target 'Anime_Example' do
+  platform :ios, '12.1'
   pod 'Anime', :path => '../'
 
   target 'Anime_Tests' do
