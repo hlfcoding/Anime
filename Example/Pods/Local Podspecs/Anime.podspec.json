@@ -1,6 +1,6 @@
 {
   "name": "Anime",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "summary": "UIView animation from the Far East.",
   "description": "Simple UIView animation library, but not any simpler.",
   "homepage": "https://github.com/hlfcoding/Anime",
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "https://github.com/hlfcoding/Anime.git",
-    "tag": "0.2.0"
+    "tag": "0.3.0"
   },
   "social_media_url": "https://twitter.com/hlfcoding",
   "platforms": {
